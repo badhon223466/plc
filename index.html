@@ -87,6 +87,7 @@
             color: var(--text-white);
             outline: none;
             width: 240px;
+            transition: width 0.3s ease;
         }
         body.dark-theme .search-bar input { background: rgba(255, 255, 255, 0.05); }
         .theme-toggle-btn { background: none; border: none; color: var(--text-gray); font-size: 1.25rem; cursor: pointer; }
@@ -113,7 +114,8 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
 
-        .filter-group { display: flex; gap: 8px; }
+        .filter-group { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+        .filter-group::-webkit-scrollbar { display: none; }
         .filter-btn {
             background: transparent;
             border: 1px solid transparent;
@@ -123,6 +125,7 @@
             cursor: pointer;
             font-weight: 500;
             font-size: 0.9rem;
+            white-space: nowrap;
         }
         .filter-btn:hover, .filter-btn.active { background: #e0f2fe; color: #0369a1; }
         body.dark-theme .filter-btn:hover, body.dark-theme .filter-btn.active { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
@@ -130,7 +133,7 @@
 
         .right-controls { display: flex; align-items: center; gap: 12px; }
         .brand-dropdown {
-            background: transparent;
+            background: var(--card-bg);
             color: var(--text-white);
             border: 1px solid var(--border-color);
             padding: 8px 16px;
@@ -172,6 +175,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
         .user-request-btn:hover { background: #16a34a; }
 
@@ -216,7 +220,7 @@
         .card:hover .open-modal-btn { background: var(--primary); color: #fff; border-color: var(--primary); }
         
         .admin-actions { display: flex; gap: 10px; margin-top: 15px; }
-        .admin-action-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: rgba(15, 23, 42, 0.03); color: var(--text-white); }
+        .admin-action-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: rgba(15, 23, 42, 0.03); color: var(--text-white); text-align: center;}
         .btn-edit:hover { background: var(--primary); color: white; }
         .btn-delete:hover { background: var(--danger); color: white; }
 
@@ -240,9 +244,9 @@
         .card-grid.list-view-mode .admin-actions { margin-top: 0; }
 
         /* Modals & Forms */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 10, 0.6); backdrop-filter: blur(5px); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 10, 0.6); backdrop-filter: blur(5px); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; padding: 15px; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-container { background: var(--card-bg); border: 1px solid var(--border-color); width: 90%; max-width: 500px; border-radius: 16px; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-container { background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; max-width: 500px; border-radius: 16px; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; }
         .close-modal-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--text-gray); font-size: 1.5rem; cursor: pointer; }
         .modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; color: var(--primary); }
         .form-group { margin-bottom: 15px; }
@@ -387,12 +391,76 @@
             border-color: var(--primary);
         }
 
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .footer-bottom { flex-direction: column; text-align: center; }
+        /* ==========================================================================
+           RESPONSIVE MOBILE STYLES (MEDIA QUERIES)
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 2.5rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
         }
+
+        @media (max-width: 768px) {
+            /* Header adjustments */
+            .header-container { flex-direction: column; gap: 15px; align-items: stretch; }
+            .nav-menu { justify-content: center; order: 3; gap: 20px; }
+            .nav-actions { justify-content: space-between; order: 2; }
+            .search-bar { flex-grow: 1; }
+            .search-bar input { width: 100%; }
+
+            /* Hero adjustments */
+            .hero { padding: 40px 0; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 0.95rem; }
+
+            /* Controls Bar Mobile View Layout */
+            .controls-wrapper {
+                flex-direction: column;
+                border-radius: 16px;
+                padding: 15px;
+                gap: 15px;
+                align-items: stretch;
+            }
+            .filter-group {
+                justify-content: flex-start;
+                padding-bottom: 5px;
+            }
+            .right-controls {
+                display: grid;
+                grid-template-columns: 1fr auto auto;
+                gap: 10px;
+            }
+            .brand-dropdown { width: 100%; }
+
+            /* Grid Layout adjustments */
+            .card-grid { grid-template-columns: 1fr; gap: 20px; }
+
+            /* Force Cards inside List View to behave like grid cards on mobile screens */
+            .card-grid.list-view-mode .card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 25px;
+                gap: 10px;
+            }
+            .card-grid.list-view-mode .card-title { min-width: unset; }
+            .card-grid.list-view-mode .card-desc { min-height: 45px; flex-grow: unset; }
+            .card-grid.list-view-mode .card-meta { justify-content: space-between; margin-bottom: 15px; }
+            .card-grid.list-view-mode .open-modal-btn { width: 100%; }
+            .card-grid.list-view-mode .admin-actions { margin-top: 15px; }
+
+            /* Footer adjustments */
+            .footer { padding: 40px 0 20px 0; margin-top: 60px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 25px; }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 15px; }
+        }
+
         @media (max-width: 480px) {
-            .footer-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.6rem; }
+            .modal-container { padding: 20px 15px; }
+            .modal-title { font-size: 1.2rem; }
+            .right-controls {
+                grid-template-columns: 1fr auto;
+            }
+            .view-toggle-group { display: none; } /* Hide view switcher on ultra-small screens */
         }
 
         .loading-container { text-align: center; padding: 50px; font-size: 1.5rem; color: var(--primary); }
@@ -459,7 +527,7 @@
 
                 <!-- User Content Submission Request Link Button -->
                 <button class="user-request-btn" id="openRequestModalBtn"><i class="fa-solid fa-plus"></i> Request</button>
-                <button class="user-request-btn" id="addItemBtn" style="display:none; background:var(--primary);"><i class="fa-solid fa-plus"></i> Add New Item</button>
+                <button class="user-request-btn" id="addItemBtn" style="display:none; background:var(--primary);"><i class="fa-solid fa-plus"></i> Add New</button>
             </div>
         </div>
 
@@ -744,8 +812,6 @@
                 renderCards();
             });
         }
-
-        
         loadLiveFirestoreData();
 
         // UI Card Rendering Layer Star Helper Generator
@@ -996,5 +1062,3 @@
     </script>
 </body>
 </html>
-
-
