@@ -69,7 +69,6 @@
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 700; color: var(--text-white); text-decoration: none; }
-        .logo-icon { color: var(--primary); font-size: 1.8rem; }
         .logo span span { color: var(--primary); }
         
         .nav-menu { display: flex; list-style: none; gap: 25px; }
@@ -140,6 +139,7 @@
             border-radius: 8px;
             outline: none;
             cursor: pointer;
+            text-transform: capitalize;
         }
 
         /* View Toggle Layout Button Style */
@@ -202,6 +202,7 @@
         .plc { background: rgba(56, 189, 248, 0.15); color: #0284c7; }
         .hmi { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
         .vfd { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+        .servo { background: rgba(249, 115, 22, 0.15); color: #f97316; }
         .manual { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
 
         .bookmark-btn { background: none; border: none; color: var(--text-gray); font-size: 1.15rem; cursor: pointer; }
@@ -391,28 +392,23 @@
             border-color: var(--primary);
         }
 
-        /* ==========================================================================
-           RESPONSIVE MOBILE STYLES (MEDIA QUERIES)
-           ========================================================================== */
+        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
             .hero h1 { font-size: 2.5rem; }
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
         }
 
         @media (max-width: 768px) {
-            /* Header adjustments */
             .header-container { flex-direction: column; gap: 15px; align-items: stretch; }
             .nav-menu { justify-content: center; order: 3; gap: 20px; }
             .nav-actions { justify-content: space-between; order: 2; }
             .search-bar { flex-grow: 1; }
             .search-bar input { width: 100%; }
 
-            /* Hero adjustments */
             .hero { padding: 40px 0; }
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 0.95rem; }
 
-            /* Controls Bar Mobile View Layout */
             .controls-wrapper {
                 flex-direction: column;
                 border-radius: 16px;
@@ -431,10 +427,8 @@
             }
             .brand-dropdown { width: 100%; }
 
-            /* Grid Layout adjustments */
             .card-grid { grid-template-columns: 1fr; gap: 20px; }
 
-            /* Force Cards inside List View to behave like grid cards on mobile screens */
             .card-grid.list-view-mode .card {
                 flex-direction: column;
                 align-items: stretch;
@@ -447,7 +441,6 @@
             .card-grid.list-view-mode .open-modal-btn { width: 100%; }
             .card-grid.list-view-mode .admin-actions { margin-top: 15px; }
 
-            /* Footer adjustments */
             .footer { padding: 40px 0 20px 0; margin-top: 60px; }
             .footer-grid { grid-template-columns: 1fr; gap: 25px; }
             .footer-bottom { flex-direction: column; text-align: center; gap: 15px; }
@@ -457,15 +450,12 @@
             .hero h1 { font-size: 1.6rem; }
             .modal-container { padding: 20px 15px; }
             .modal-title { font-size: 1.2rem; }
-            .right-controls {
-                grid-template-columns: 1fr auto;
-            }
-            .view-toggle-group { display: none; } /* Hide view switcher on ultra-small screens */
+            .right-controls { grid-template-columns: 1fr auto; }
+            .view-toggle-group { display: none; }
         }
 
         .loading-container { text-align: center; padding: 50px; font-size: 1.5rem; color: var(--primary); }
 
-        /* Requests Admin Table Styling */
         .req-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: var(--text-white); }
         .req-table th, .req-table td { padding: 12px; border-bottom: 1px solid var(--border-color); text-align: left; }
         .req-table th { font-weight: 600; color: var(--text-gray); }
@@ -473,12 +463,8 @@
         body.dark-theme .req-table tr:hover { background: rgba(255, 255, 255, 0.02); }
         .req-delete-btn { background: var(--danger); border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
         .req-delete-btn:hover { background: #b91c1c; }
-        .logo-icon {
-    height: 30px; /* Apnar pochondo moto size barate ba komate paren */
-    width: auto;  /* Image-er aspect ratio thik rakhbe */
-    vertical-align: middle; /* Text-er sathe porishkar vabe align korbe */
-    margin: 0px; /* Text theke ektu distance rakhbe */
-}
+        
+        .logo-icon { height: 30px; width: auto; vertical-align: middle; margin: 0; }
     </style>
 </head>
 <body>
@@ -487,9 +473,9 @@
     <header class="header">
         <div class="container header-container">
             <a href="#" class="logo">
-    <img src="https://raw.githubusercontent.com/badhon223466/plc/refs/heads/main/plcs.png" alt="Logo" class="logo-icon">
-    <span>PLC<span> Software</span></span>
-</a>
+                <img src="https://raw.githubusercontent.com/badhon223466/plc/refs/heads/main/plcs.png" alt="Logo" class="logo-icon">
+                <span>PLC<span> Software</span></span>
+            </a>
             <ul class="nav-menu">
                 <li><a href="#" onclick="window.location.reload(); return false;">Home</a></li>
                 <li><a href="#" onclick="document.querySelector('[data-filter=\'all\']').click(); return false;">Systems</a></li>
@@ -521,26 +507,22 @@
                 <button class="filter-btn" data-filter="plc">PLC</button>
                 <button class="filter-btn" data-filter="hmi">HMI</button>
                 <button class="filter-btn" data-filter="vfd">VFD</button>
+                <button class="filter-btn" data-filter="servo">Servo</button>
                 <button class="filter-btn" data-filter="manual">Manuals</button>
                 <button class="filter-btn fav-btn" data-filter="favorites"><i class="fa-solid fa-star"></i> My Favorites</button>
             </div>
             
             <div class="right-controls">
+                <!-- DYNAMIC BRAND DROPDOWN (Auto populates based on Firestore data) -->
                 <select id="brandDropdown" class="brand-dropdown">
                     <option value="all">All Brands</option>
-                    <option value="siemens">Siemens</option>
-                    <option value="delta">Delta</option>
-                    <option value="yaskawa">Yaskawa</option>
-                    <option value="mitsubishi">Mitsubishi</option>
                 </select>
 
-                <!-- Grid & List Layout Changer View Button Toggle -->
                 <div class="view-toggle-group">
                     <button class="view-btn active" id="gridViewBtn" title="Grid View"><i class="fa-solid fa-th-large"></i></button>
                     <button class="view-btn" id="listViewBtn" title="List View"><i class="fa-solid fa-list"></i></button>
                 </div>
 
-                <!-- User Content Submission Request Link Button -->
                 <button class="user-request-btn" id="openRequestModalBtn"><i class="fa-solid fa-plus"></i> Request</button>
                 <button class="user-request-btn" id="addItemBtn" style="display:none; background:var(--primary);"><i class="fa-solid fa-plus"></i> Add New</button>
             </div>
@@ -550,11 +532,10 @@
             <i class="fa-solid fa-circle-notch fa-spin"></i> Syncing Firestore Engine...
         </div>
 
-        <!-- Render Target Target Component Grid Box -->
         <div class="card-grid" id="cardGrid" style="display: none;"></div>
     </main>
 
-    <!-- User Resource Request Entry Box PopUp Modal -->
+    <!-- User Request Modal -->
     <div class="modal-overlay" id="requestModal">
         <div class="modal-container">
             <button class="close-modal-btn" onclick="closeModal('requestModal')">&times;</button>
@@ -589,21 +570,26 @@
                 <div class="form-group">
                     <label>Module Domain Category</label>
                     <select id="formCategory" class="form-control" required>
-                        <option value="plc">PLC</option><option value="hmi">HMI</option><option value="vfd">VFD</option><option value="manual">Manual</option>
+                        <option value="plc">PLC</option>
+                        <option value="hmi">HMI</option>
+                        <option value="vfd">VFD</option>
+                        <option value="servo">Servo</option>
+                        <option value="manual">Manual</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Enterprise Brand</label>
-                    <select id="formBrand" class="form-control" required>
-                        <option value="siemens">Siemens</option><option value="delta">Delta</option><option value="yaskawa">Yaskawa</option><option value="mitsubishi">Mitsubishi</option>
-                    </select>
+                    <!-- FIX: Admin can now type ANY brand directly. Suggestions will pop up! -->
+                    <label>Enterprise Brand (Type new or choose existing)</label>
+                    <input type="text" id="formBrand" class="form-control" list="existingBrands" placeholder="e.g. Siemens, Delta, Autovex..." required>
+                    <datalist id="existingBrands">
+                        <!-- Auto loaded by javascript -->
+                    </datalist>
                 </div>
                 <div class="form-group"><label>Storage Volume Size</label><input type="text" id="formSize" class="form-control" placeholder="e.g. 1.2 GB" required></div>
                 <div class="form-group"><label>Build Firmware / Version</label><input type="text" id="formVersion" class="form-control" placeholder="e.g. V4.0" required></div>
                 <div class="form-group"><label>Operating OS</label><input type="text" id="formOs" class="form-control" placeholder="Windows 10/11 64-Bit" required></div>
                 <div class="form-group"><label>Target HW RAM</label><input type="text" id="formRam" class="form-control" placeholder="8 GB RAM" required></div>
                 
-                <!-- Adjustable Star Rating Module Component -->
                 <div class="form-group">
                     <label>Rating Star Point (<span id="starRatingValue">4.5</span>)</label>
                     <input type="hidden" id="formRating" value="4.5">
@@ -623,13 +609,13 @@
         </div>
     </div>
 
-    <!-- Technical Specifications View Sheet Modal -->
+    <!-- Specs View Modal -->
     <div class="modal-overlay" id="downloadModal">
         <div class="modal-container">
             <button class="close-modal-btn" onclick="closeModal('downloadModal')">&times;</button>
             <h3 class="modal-title" id="mTitle">Technical Specifications Data</h3>
             <table style="width:100%; border-collapse:collapse; margin:20px 0; color:var(--text-white);">
-                <tr style="border-bottom:1px solid var(--border-color);"><td style="padding:10px 0; color:var(--text-gray);">Manufacturer</td><td id="mBrand" style="padding:10px 0;">-</td></tr>
+                <tr style="border-bottom:1px solid var(--border-color);"><td style="padding:10px 0; color:var(--text-gray);">Manufacturer</td><td id="mBrand" style="padding:10px 0; text-transform: capitalize;">-</td></tr>
                 <tr style="border-bottom:1px solid var(--border-color);"><td style="padding:10px 0; color:var(--text-gray);">Version Build</td><td id="mVersion" style="padding:10px 0;">-</td></tr>
                 <tr style="border-bottom:1px solid var(--border-color);"><td style="padding:10px 0; color:var(--text-gray);">File Memory Size</td><td id="mSize" style="padding:10px 0;">-</td></tr>
                 <tr style="border-bottom:1px solid var(--border-color);"><td style="padding:10px 0; color:var(--text-gray);">OS System Environment</td><td id="mOs" style="padding:10px 0;">-</td></tr>
@@ -639,7 +625,7 @@
         </div>
     </div>
 
-    <!-- Admin Panel Security Gateway LogIn Gate Modal -->
+    <!-- Admin Login Modal -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-container" style="max-width:380px;">
             <button class="close-modal-btn" onclick="closeModal('loginModal')">&times;</button>
@@ -658,7 +644,7 @@
         </div>
     </div>
 
-    <!-- Admin Requests Viewer PopUp Modal -->
+    <!-- Admin Requests Modal -->
     <div class="modal-overlay" id="adminRequestsModal">
         <div class="modal-container" style="max-width:750px;">
             <button class="close-modal-btn" onclick="closeModal('adminRequestsModal')">&times;</button>
@@ -673,21 +659,19 @@
                             <th style="text-align: center;">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="requestsTableBody">
-                        <!-- Loaded dynamically via Firestore -->
-                    </tbody>
+                    <tbody id="requestsTableBody"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- Enhanced Beautiful Footer Section -->
+    <!-- Enhanced Footer Section -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <h3><img src="https://raw.githubusercontent.com/badhon223466/plc/refs/heads/main/plcs.png" alt="Logo" class="logo-icon"> PLC<span>Software</span></h3>
-                    <p>PLC Software ( A Sister Concern of <a href="https://autovexsolution.pro.bd" target="_blank" style="text-decoration: none; color: red;"><strong>Autovex Solution</strong></a> ) is a complete industrial automation resource hub. Find all types of HMI & PLC software, tools, and technical manuals in one place.</p>
+                    <p>PLC Software (A Sister Concern of <a href="https://autovexsolution.pro.bd" target="_blank" style="text-decoration: none; color: red;"><strong>Autovex Solution</strong></a>) is a complete industrial automation resource hub. Find all types of HMI & PLC software, tools, and technical manuals in one place.</p>
                     <div class="footer-socials">
                         <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                         <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -700,6 +684,7 @@
                         <li><a href="#" onclick="document.querySelector('[data-filter=\'plc\']').click(); return false;">PLC Environments</a></li>
                         <li><a href="#" onclick="document.querySelector('[data-filter=\'hmi\']').click(); return false;">HMI Designers</a></li>
                         <li><a href="#" onclick="document.querySelector('[data-filter=\'vfd\']').click(); return false;">VFD Managers</a></li>
+                        <li><a href="#" onclick="document.querySelector('[data-filter=\'servo\']').click(); return false;">Servo Configurations</a></li>
                         <li><a href="#" onclick="document.querySelector('[data-filter=\'manual\']').click(); return false;">PDF Manuals</a></li>
                     </ul>
                 </div>
@@ -724,7 +709,6 @@
             <div class="footer-bottom">
                 <p>&copy; 2026 Autovex Solution System. All Rights Reserved.</p>
                 <div>
-                    <!-- New Request View Button (Only visible for admin) -->
                     <button class="footer-admin-link" id="viewRequestsBtn" style="display:none; background: var(--success); border-color: var(--success); margin-right: 10px;"><i class="fa-solid fa-inbox"></i> View Requests</button>
                     <a class="footer-admin-link" id="footerAdminBtn"><i class="fa-solid fa-user-shield"></i> Workspace Gate</a>
                 </div>
@@ -732,7 +716,7 @@
         </div>
     </footer>
 
-    <!-- Firebase System JavaScript Core Logic Integrations Module -->
+    <!-- Firebase Script Execution Block -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { 
@@ -755,7 +739,7 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
         const productsColRef = collection(db, "software_products");
-        const requestsColRef = collection(db, "user_resource_requests"); // Requests collection ref[cite: 1]
+        const requestsColRef = collection(db, "user_resource_requests");
 
         let softwareList = [];
         let favorites = JSON.parse(localStorage.getItem('autohub_favs')) || [];
@@ -773,9 +757,9 @@
         window.saveItemToFirebase = saveItemToFirebase;
         window.editItem = editItem;
         window.deleteItem = deleteItem;
-        window.deleteRequest = deleteRequest; // Global delete function for requests
+        window.deleteRequest = deleteRequest; 
 
-        // Interactive Clickable Star Setup System 
+        // Star rating picker layout setup
         const starContainer = document.getElementById('interactiveStarContainer');
         const starInput = document.getElementById('formRating');
         const starValueDisplay = document.getElementById('starRatingValue');
@@ -808,7 +792,7 @@
         gridViewBtn.addEventListener('click', () => {
             currentLayoutMode = 'grid';
             gridViewBtn.classList.add('active');
-            listViewBtn.classList.remove('remove');
+            listViewBtn.classList.remove('active');
             cardGrid.classList.remove('list-view-mode');
             renderCards();
         });
@@ -842,8 +826,36 @@
                 closeModal('requestModal');
                 document.getElementById('requestForm').reset();
             } catch (err) {
-                alert("Database push synchronization pipeline execution failure: " + err.message);
+                alert("Database synchronization line failure: " + err.message);
             }
+        }
+
+        // DYNAMIC BRAND CONTROLLER: Updates select menu and datalist based on Firestore data
+        function updateDynamicBrandUI() {
+            const dropdown = document.getElementById('brandDropdown');
+            const datalist = document.getElementById('existingBrands');
+            
+            // Extract unique and clean brand names from data
+            const uniqueBrands = new Set();
+            softwareList.forEach(item => {
+                if (item.brand && item.brand.trim() !== '') {
+                    uniqueBrands.add(item.brand.toLowerCase().trim());
+                }
+            });
+
+            // Re-render Main Navbar Brand Dropdown filter
+            const currentSelected = activeBrand;
+            dropdown.innerHTML = '<option value="all">All Brands</option>';
+            uniqueBrands.forEach(brand => {
+                dropdown.innerHTML += `<option value="${brand}">${brand}</option>`;
+            });
+            dropdown.value = currentSelected;
+
+            // Re-render Admin Panel suggestions datalist
+            datalist.innerHTML = '';
+            uniqueBrands.forEach(brand => {
+                datalist.innerHTML += `<option value="${brand}">`;
+            });
         }
 
         function loadLiveFirestoreData() {
@@ -854,12 +866,14 @@
                 });
                 document.getElementById('loadingSpinner').style.display = 'none';
                 cardGrid.style.display = 'grid';
+                
+                // Trigger dynamic brand dropdown render
+                updateDynamicBrandUI();
                 renderCards();
             });
         }
         loadLiveFirestoreData();
 
-        // Admin Request Realtime Listener
         let requestsUnsubscribe = null;
         function loadLiveUserRequests() {
             if (requestsUnsubscribe) requestsUnsubscribe();
@@ -882,7 +896,7 @@
                             <td>${req.brand || 'N/A'}</td>
                             <td>${req.notes || 'No notes.'}</td>
                             <td style="text-align: center;">
-                                <button class="req-delete-btn" onclick="deleteRequest('${reqId}')"><i class="fa-solid fa-trash"></i> Delete</button>
+                                <button class="req-delete-btn" onclick="deleteRequest('${reqId}')"><i class="fa-solid fa-trash"></i> Dismiss</button>
                             </td>
                         </tr>
                     `;
@@ -902,7 +916,6 @@
             }
         }
 
-        // UI Card Rendering Layer Star Helper Generator
         function generateStarHTML(ratingValue) {
             const num = parseFloat(ratingValue) || 4.5;
             let starsHtml = '';
@@ -1034,26 +1047,25 @@
         document.getElementById('addItemBtn').addEventListener('click', () => {
             document.getElementById('itemId').value = '';
             document.getElementById('itemForm').reset();
-            setInteractiveStars(4.5); // Default setup star rating config pointer
+            setInteractiveStars(4.5); 
             document.getElementById('formModalTitle').innerText = 'Add New System Resource';
             document.getElementById('formSubmitBtn').innerText = 'Save to Firestore';
             openModal('itemModal');
         });
 
-        async function editItem(id) {
+        function editItem(id) {
             const item = softwareList.find(x => x.id === id);
             if (!item) return;
             document.getElementById('itemId').value = item.id;
             document.getElementById('formTitle').value = item.title;
             document.getElementById('formDesc').value = item.desc;
             document.getElementById('formCategory').value = item.category;
-            document.getElementById('formBrand').value = item.brand;
+            document.getElementById('formBrand').value = item.brand || '';
             document.getElementById('formSize').value = item.size;
             document.getElementById('formVersion').value = item.version;
             document.getElementById('formOs').value = item.os;
             document.getElementById('formRam').value = item.ram;
             
-            // Render Selected Star Point mapping from document entry
             const activeRatingNum = parseFloat(item.rating) || 4.5;
             setInteractiveStars(activeRatingNum);
 
@@ -1069,11 +1081,16 @@
             if(!auth.currentUser) return alert("Unauthorized request blocked!");
 
             const id = document.getElementById('itemId').value;
+            
+            // Clean dynamic text parsing
+            const rawBrand = document.getElementById('formBrand').value;
+            const parsedBrand = rawBrand.toLowerCase().trim();
+
             const payload = {
                 title: document.getElementById('formTitle').value,
                 desc: document.getElementById('formDesc').value,
                 category: document.getElementById('formCategory').value,
-                brand: document.getElementById('formBrand').value,
+                brand: parsedBrand, // Saves dynamically written text brand name!
                 size: document.getElementById('formSize').value,
                 version: document.getElementById('formVersion').value,
                 os: document.getElementById('formOs').value,
@@ -1116,7 +1133,7 @@
                 footerAdminBtn.innerHTML = '<i class="fa-solid fa-lock-open"></i> Logout';
                 if(addItemBtn) addItemBtn.style.display = 'inline-block';
                 if(viewRequestsBtn) viewRequestsBtn.style.display = 'inline-block';
-                loadLiveUserRequests(); // Load requests if admin logged in[cite: 1]
+                loadLiveUserRequests();
             } else {
                 isAdmin = false;
                 footerAdminBtn.innerHTML = '<i class="fa-solid fa-user-shield"></i> Workspace Gate';
@@ -1143,7 +1160,7 @@
                 await signInWithEmailAndPassword(auth, email, pass);
                 closeModal('loginModal');
                 alert("Verification complete.");
-            } catch(err) { alert("Invalid system access token configuration setup match parameters."); }
+            } catch(err) { alert("Invalid login credentials."); }
         }
 
         const themeToggle = document.getElementById('themeToggle');
